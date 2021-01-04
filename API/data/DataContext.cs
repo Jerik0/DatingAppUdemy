@@ -7,6 +7,7 @@ namespace API.data
     {
         public DataContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<AppUser> Users { get; set; }
