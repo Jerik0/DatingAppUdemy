@@ -19,9 +19,11 @@ namespace API
     public class Startup
     {
         private readonly IConfiguration _config;
+        private IHostEnvironment _appHost;
 
-        public Startup(IConfiguration config)
+        public Startup(IConfiguration config, IHostEnvironment appHost)
         {
+            _appHost = appHost;
             _config = config;
         }
 
@@ -30,7 +32,7 @@ namespace API
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                options.UseSqlite($"Data Source={_appHost.ContentRootPath}/datingapp.db");
             });
             services.AddControllers();
             services.AddCors();
